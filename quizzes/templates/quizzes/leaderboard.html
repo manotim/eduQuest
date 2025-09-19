@@ -1,0 +1,36 @@
+
+{% extends "quizzes/base.html" %}
+{% load static %}
+{% block title %}Leaderboard{% endblock %}
+{% block content %}
+<div class="bg-white p-6 rounded shadow">
+  <h1 class="text-2xl font-bold mb-4">Leaderboard – {{ quiz.title }}</h1>
+
+  {% if leaderboard %}
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Rank</th>
+          <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">User</th>
+          <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Score</th>
+          <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Date</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        {% for attempt in leaderboard %}
+          <tr class="hover:bg-gray-50">
+            <td class="px-4 py-2">{{ forloop.counter }}</td>
+            <td class="px-4 py-2">{{ attempt.user.username }}</td>
+            <td class="px-4 py-2 font-bold">{{ attempt.score }}</td>
+            <td class="px-4 py-2 text-gray-500">{{ attempt.created_at|date:"M d, Y H:i" }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No attempts yet. Be the first to take this quiz!</p>
+  {% endif %}
+
+  <a href="{% url 'quizzes:quiz_detail' quiz.pk %}" class="mt-4 inline-block bg-indigo-600 text-white px-4 py-2 rounded">Back to Quiz</a>
+</div>
+{% endblock %}

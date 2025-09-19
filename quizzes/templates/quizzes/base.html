@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}EduQuest{% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  {% block head %}{% endblock %}
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+  <nav class="bg-indigo-600 text-white p-4 flex justify-between">
+    <a href="{% url 'quizzes:quiz_list' %}" class="font-bold">EduQuest</a>
+    <div>
+      {% if user.is_authenticated %}
+        <span class="mr-2">Hi, {{ user.username }}</span>
+        <a href="{% url 'logout' %}" class="underline">Logout</a>
+      {% else %}
+        <a href="{% url 'login' %}" class="underline mr-2">Login</a>
+        <a href="{% url 'signup' %}" class="underline">Signup</a>
+      {% endif %}
+    </div>
+  </nav>
+
+  <main class="container mx-auto p-6 flex-1">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="bg-gray-200 text-center py-4">
+    <p>&copy; 2025 EduQuest</p>
+  </footer>
+</body>
+</html>
