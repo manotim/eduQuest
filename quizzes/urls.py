@@ -10,4 +10,5 @@ urlpatterns = [
     path("<int:pk>/leaderboard/", views.LeaderboardView.as_view(), name="leaderboard"),
     path("<int:pk>/results/", views.ResultsView.as_view(), name="results"),
     path("<int:pk>/api/", views.QuizAPI.as_view(), name="quiz_api"),  # <-- new
+    path("register/", views.register, name="register"),
 ]

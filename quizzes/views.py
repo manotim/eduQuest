@@ -1,15 +1,23 @@
 from django.views.generic import ListView, DetailView, TemplateView, View
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.http import JsonResponse, HttpResponseBadRequest
 from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse
-import random
-from random import sample
-
 import json
 from .models import Quiz, Question, Choice, QuizAttempt, QuestionAttempt
+from django.contrib.auth.forms import UserCreationForm
 
+
+
+def register(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()  # ✅ creates the user
+            return redirect("login")  # go to login after register
+    else:
+        form = UserCreationForm()
+    return render(request, "registration/register.html", {"form": form})
 
 class QuizListView(ListView):
     model = Quiz
