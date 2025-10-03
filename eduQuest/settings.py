@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'quizzes',
      "crispy_forms",
     "crispy_tailwind",
+    'pages', 
 ]
 
 MIDDLEWARE = [
